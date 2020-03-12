@@ -1,6 +1,6 @@
-serverless google cloud app engine and postgreSQL database config for mini project 1
+# serverless google cloud app engine and postgreSQL database config for mini project 1
 
-\*\*to make changes:
+## to make changes:
 
 - clone to local machine
 - make changes
