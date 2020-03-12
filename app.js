@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.get('/sql', (req, res) => {
+app.get('/', (req, res) => {
   res.send('nice').end();
 });
 
@@ -61,9 +61,9 @@ app.post('/login', (req, res) => {
     )
     .then(data => {
       if (data.rows[0] && data.rows[0].password == req.body.password) {
-        res.send({ success: true }).end();
+        res.send({ success: true, data: null }).end();
       } else {
-        res.send({ success: false }).end();
+        res.send({ success: false, data: null }).end();
       }
       client.end();
     })
