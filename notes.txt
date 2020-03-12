@@ -1,0 +1,4 @@
+gcloud sql connect security-project --user=postgres
+
+gcloud app deploy
+gcloud app browse
