@@ -10,6 +10,10 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.get('/sql', (req, res) => {
+  res.send('nice').end();
+});
+
+app.get('/sql', (req, res) => {
   if (req.query.sqlquery) {
     const client = new Client({
       user: 'postgres',
@@ -69,6 +73,7 @@ app.post('/login', (req, res) => {
       client.end();
     });
 });
+
 app.post('/register', (req, res) => {
   const client = new Client({
     user: 'postgres',
