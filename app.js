@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
         console.log(err);
         res
           .status(200)
-          .send('bad query')
+          .send('bad postgresql query')
           .end();
         client.end();
       });
