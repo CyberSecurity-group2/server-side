@@ -9,9 +9,13 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+var cors = require('cors');
+
 app.get('/', (req, res) => {
   res.send('nice').end();
 });
+
+app.use(cors());
 
 app.get('/sql', (req, res) => {
   if (req.query.sqlquery) {
