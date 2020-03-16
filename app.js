@@ -26,27 +26,40 @@ app.get('/sql', (req, res) => {
       password: 'password'
     });
     client.connect();
-    client
-      .query(req.query.sqlquery)
-      .then(data => {
-        res
-          .status(200)
-          .send(data.rows)
-          .end();
-        client.end();
-      })
-      .catch(err => {
-        console.log(err);
-        res
-          .status(200)
-          .send('bad postgresql query')
-          .end();
-        client.end();
-      });
+    let quoteCount = 0;
+    for (let i = 0; i < req.query.sqlquery.length; i++) {
+      if (req.query.sqlquery.charAt(i) === "'") {
+        quoteCount++;
+      }
+    }
+    if (quoteCount > 2) {
+      res
+        .status(200)
+        .send({ data: 'intruder alert' })
+        .end();
+    } else {
+      client
+        .query(req.query.sqlquery)
+        .then(data => {
+          res
+            .status(200)
+            .send(data.rows)
+            .end();
+          client.end();
+        })
+        .catch(err => {
+          console.log(err);
+          res
+            .status(200)
+            .send({ data: 'bad postgresql query' })
+            .end();
+          client.end();
+        });
+    }
   } else {
     res
       .status(200)
-      .send('no query')
+      .send({ data: 'no query' })
       .end();
   }
 });
