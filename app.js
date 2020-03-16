@@ -61,7 +61,9 @@ app.post('/login', (req, res) => {
   client.connect();
   client
     .query(
-      "SELECT password FROM LOGINS WHERE username='" + req.body.username + "'"
+      "SELECT password FROM user_data WHERE username='" +
+        req.body.username +
+        "'"
     )
     .then(data => {
       if (data.rows[0] && data.rows[0].password == req.body.password) {
@@ -88,7 +90,7 @@ app.post('/register', (req, res) => {
   client.connect();
   client
     .query(
-      `INSERT INTO logins (username, password) VALUES ('${req.body.username}', '${req.body.password}');`
+      `INSERT INTO user_data (username, password) VALUES ('${req.body.username}', '${req.body.password}');`
     )
     .then(data => {
       if (data.rowCount && data.rowCount == 1) {
