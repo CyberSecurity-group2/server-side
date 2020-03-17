@@ -80,7 +80,7 @@ app.post('/login', (req, res) => {
     )
     .then(data => {
       if (data.rows[0] && data.rows[0].password == req.body.password) {
-        res.send({ success: true, data: null }).end();
+        res.send({ success: true, data: req.body.username }).end();
       } else {
         res.send({ success: false, data: null }).end();
       }
