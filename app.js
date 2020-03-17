@@ -117,7 +117,7 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.post('/getUser', (req, res) => {
+app.get('/getUser', (req, res) => {
   const client = new Client({
     user: 'postgres',
     host: '34.74.147.158',
@@ -127,12 +127,10 @@ app.post('/getUser', (req, res) => {
   client.connect();
   client
     .query(
-      `SELECT * FROM user_data`
+      `SELECT * FROM user_data;`
     )
     .then(data => {
-      if (data.rowCount && data.rowCount == 1) {
-        res.send({ success: true, data: data });
-      }
+      res.send({ success: true, data: data });
       client.end();
     })
     .catch(err => {
