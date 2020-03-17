@@ -117,6 +117,32 @@ app.post('/register', (req, res) => {
     });
 });
 
+app.post('/getUser', (req, res) => {
+  const client = new Client({
+    user: 'postgres',
+    host: '34.74.147.158',
+    database: 'postgres',
+    password: 'password'
+  });
+  client.connect();
+  client
+    .query(
+      `SELECT * FROM user_data`
+    )
+    .then(data => {
+      if (data.rowCount && data.rowCount == 1) {
+        res.send({ success: true, data: data });
+      }
+      client.end();
+    })
+    .catch(err => {
+      res.send({ success: false, data: err }).end();
+      client.end();
+    });
+});
+
+
+
 app.listen(PORT, () => {
   console.log('App listening on port', PORT);
 });
