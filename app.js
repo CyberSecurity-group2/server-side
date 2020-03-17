@@ -74,13 +74,19 @@ app.post('/login', (req, res) => {
   client.connect();
   client
     .query(
-      "SELECT password FROM user_data WHERE username='" +
+      "SELECT password, id FROM user_data WHERE username='" +
         req.body.username +
         "'"
     )
     .then(data => {
       if (data.rows[0] && data.rows[0].password == req.body.password) {
-        res.send({ success: true, data: req.body.username }).end();
+        res
+          .send({
+            success: true,
+            username: req.body.username,
+            id: data.rows[0].id
+          })
+          .end();
       } else {
         res.send({ success: false, data: null }).end();
       }
