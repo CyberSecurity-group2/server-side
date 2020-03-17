@@ -133,7 +133,9 @@ app.get('/getUser', (req, res) => {
   client.connect();
   client
     .query(
-      `SELECT * FROM user_data;`
+      "SELECT * FROM user_data WHERE id='" +
+        req.query.id +
+        "'"
     )
     .then(data => {
       res.send({ success: true, data: data });
