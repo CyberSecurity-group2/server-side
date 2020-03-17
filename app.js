@@ -138,7 +138,7 @@ app.get('/getUser', (req, res) => {
         "'"
     )
     .then(data => {
-      res.send({ success: true, data: data });
+      res.send({ success: true, data: data.rows[0] });
       client.end();
     })
     .catch(err => {
