@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 var cors = require('cors');
 
+
+
 app.get('/', (req, res) => {
   res.send('nice').end();
 });
@@ -124,6 +126,8 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/getUser', (req, res) => {
+  var num = req.query.id;
+  // num = num.substring(6, 7);
   const client = new Client({
     user: 'postgres',
     host: '34.74.147.158',
@@ -134,7 +138,7 @@ app.get('/getUser', (req, res) => {
   client
     .query(
       "SELECT * FROM user_data WHERE id='" +
-        req.query.id +
+        num +
         "'"
     )
     .then(data => {
